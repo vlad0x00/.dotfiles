@@ -1,0 +1,4 @@
+files/.config/*
+!files/.config/xfce4
+!files/.config/yabar
+
