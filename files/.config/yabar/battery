@@ -16,16 +16,12 @@ def get_battery():
 		remaining = " (--:--)"
 
 	charge = int(percent[:-1])
-	if charge == 100:
+	if charge > 75:
 		icon = ""
-	elif charge > 75:
+	elif charge > 45:
 		icon = ""
-	elif charge > 50:
-		icon = ""
-	elif charge > 25:
-		icon = ""
 	else:
-		icon = "" # Oh shit
+		icon = ""
 	icon = icon + " "
 
 	return icon + percent + remaining
