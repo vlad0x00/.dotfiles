@@ -1,9 +1,3 @@
 alias _="sudo"
-
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-
 alias ls="ls --color=auto"
-
 alias make="/usr/bin/make -j4"

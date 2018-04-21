@@ -109,5 +109,7 @@ if [[ ! -d $ZSH_CACHE_DIR ]]; then
 fi
 
 source $ZSH/oh-my-zsh.sh
+[[ -f ~/.env ]] && source ~/.env
+[[ -f ~/.alias ]] && source ~/.alias
 
 (cat $HOME/.cache/wal/sequences &)
