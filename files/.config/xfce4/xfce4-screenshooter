@@ -1,8 +1,8 @@
 delay=3
-region=3
+region=1
 action=1
 show_mouse=0
 screenshot_dir=file:/home/schutzekatze
-app=gimp-2.8
+app=shotwell
 last_user=
 
