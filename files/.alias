@@ -1,4 +1,3 @@
 alias _="sudo"
 alias ls="ls --color=auto"
 alias lsd="{ls | tr '\n' ' '; echo; } | lolcat -a -d 150 -s 60"
-alias make="/usr/bin/make -j4"
