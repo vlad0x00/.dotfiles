@@ -33,4 +33,5 @@ fi
 xbindkeys &
 compton -b
 wal -i ~/wallpapers
+redshift &
 exec i3
