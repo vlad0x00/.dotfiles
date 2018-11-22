@@ -2,7 +2,7 @@ delay=3
 region=1
 action=1
 show_mouse=0
-screenshot_dir=file:/home/schutzekatze
+screenshot_dir=file:///home/schutz
 app=shotwell
 last_user=
 
