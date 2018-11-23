@@ -27,4 +27,6 @@ MiscCopyOnSelect=FALSE
 MiscUseShiftArrowsToScroll=FALSE
 MiscSlimTabs=FALSE
 BackgroundDarkness=0.850000
+MiscShowRelaunchDialog=TRUE
+MiscNewTabAdjacent=FALSE
 
