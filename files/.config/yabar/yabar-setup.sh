@@ -5,7 +5,7 @@ source ~/.cache/wal/colors.sh
 config=$(cat ~/.config/yabar/yabar.conf)
 
 wifi=$(ls /sys/class/net | grep -m 1 wl)
-device=$(df -h / | head -2 | tail -1 | awk '{print $1}')
+device=$(df -h / | head -n 2 | tail -n 1 | awk '{print $1}')
 
 config=$(echo "$config" \
 	| sed "s~<background_argb>~0xD8${color0: -6}~g" \
