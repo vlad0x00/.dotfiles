@@ -8,10 +8,10 @@ i3 = i3ipc.Connection()
 def print_workspaces():
     output = ""
     for workspace in i3.get_workspaces():
-        if workspace['focused']:
-            output += '<span bgcolor="#000000FF"> ' + str(workspace['num']) + ' </span>'
+        if workspace.focused:
+            output += '<span bgcolor="#000000FF"> ' + str(workspace.num) + ' </span>'
         else:
-            output += " " + str(workspace['num']) + " "
+            output += " " + str(workspace.num) + " "
     print(output)
     sys.stdout.flush()	
 
