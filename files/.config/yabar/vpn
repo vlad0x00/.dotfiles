@@ -1,0 +1,4 @@
+#!/bin/bash
+
+protonvpn s | grep Status: | sed 's~Status:[[:space:]]*~VPN: ~' | sed 's~Connected~on~' | sed 's~Disconnected~off~'
+
