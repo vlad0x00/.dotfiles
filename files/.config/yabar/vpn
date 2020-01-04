@@ -1,4 +1,11 @@
 #!/bin/bash
 
-protonvpn s | grep Status: | sed 's~Status:[[:space:]]*~VPN: ~' | sed 's~Connected~on~' | sed 's~Disconnected~off~'
+( protonvpn s >/tmp/protonvpn_status_new & )
+status=$(cat /tmp/protonvpn_status | grep 'Status:' | sed 's~Status:[[:space:]]*~VPN: ~' | sed 's~Connected~on~' | sed 's~Disconnected~off~')
+if [[ -z "$status" ]]; then
+    echo "VPN: off"
+else
+    echo "$status"
+fi
+mv -f /tmp/protonvpn_status_new /tmp/protonvpn_status
 
