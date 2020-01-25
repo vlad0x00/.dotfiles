@@ -4,8 +4,8 @@ mv -f /tmp/protonvpn_status_new /tmp/protonvpn_status
 ( protonvpn s >/tmp/protonvpn_status_new & )
 status=$(cat /tmp/protonvpn_status | grep 'Status:' | sed 's~Status:[[:space:]]*~VPN: ~' | sed 's~Connected~on~' | sed 's~Disconnected~off~')
 if [[ -z "$status" ]]; then
-    echo "VPN: off"
+  echo "VPN: off"
 else
-    echo "$status"
+  echo "$status"
 fi
 

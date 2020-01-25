@@ -1,39 +1,60 @@
 #!/usr/bin/env python3
 
 import subprocess as sub
+import time
+import os
+import signal
+
+NAGBAR_PID_FILEPATH = '/tmp/yabar_battery_nagbar_pid'
+BATTERY_LOW_MSG = 'BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW'
+NAGBAR_LINES = 5
 
 def get_batteries():
-    p = sub.Popen(['acpi', '-b'], stdout=sub.PIPE, stderr=sub.PIPE)
-    output, errors = p.communicate()
-    output = output.decode('utf-8')
-    errors = errors.decode('utf-8')
+  p = sub.run(['acpi', '-b'], capture_output=True)
+  output = p.stdout.decode('utf-8')
+  errors = p.stderr.decode('utf-8')
 
-    batteries = output.split('\n')
-    output = ''
-    for i, battery in enumerate(batteries):
-        if battery == '': continue
+  batteries = output.split('\n')
+  output = ''
+  for i, battery in enumerate(batteries):
+    if battery == '': continue
 
-        battery = battery.split(',')
+    battery = battery.split(',')
 
-        percent = int(battery[1][1:-1])
-        if percent > 75:
-            icon = ''
-        elif percent > 45:
-            icon = ''
-        else:
-            icon = ''
-        percent = str(percent) + '%'
+    percent = int(battery[1][1:-1])
+    if percent > 75:
+      icon = ''
+    elif percent > 45:
+      icon = ''
+    else:
+      icon = ''
 
-        if (len(battery) > 2):
-            remaining = '(' + battery[2].split(' ')[1][:-3] + ')'
-        else:
-            remaining = '(--:--)'
+    if percent <= 5:
+      if not os.path.isfile(NAGBAR_PID_FILEPATH):
+        with open(NAGBAR_PID_FILEPATH, 'w') as f:
+          for _ in range(NAGBAR_LINES):
+            nagbar_process = sub.Popen(['i3-nagbar', '-m', BATTERY_LOW_MSG], stdout=sub.PIPE, stderr=sub.PIPE)
+            f.write(str(nagbar_process.pid))
+            f.write('\n')
+    else:
+      if os.path.isfile(NAGBAR_PID_FILEPATH):
+        with open(NAGBAR_PID_FILEPATH, 'r') as f:
+          for line in f:
+            os.kill(int(line), signal.SIGTERM)
+        os.remove(NAGBAR_PID_FILEPATH)
 
-        battery = icon + ' ' + percent + ' ' + remaining
+    percent = str(percent) + '%'
 
-        if i > 0: output += ' '
-        output += battery
+    if (len(battery) > 2):
+      remaining = '(' + battery[2].split(' ')[1][:-3] + ')'
+    else:
+      remaining = '(--:--)'
 
-    return output
+    battery = icon + ' ' + percent + ' ' + remaining
+
+    if i > 0: output += ' '
+    output += battery
+
+  return output
 
 print(get_batteries(), end='')
