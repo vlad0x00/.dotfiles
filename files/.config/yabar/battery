@@ -29,8 +29,10 @@ def get_batteries():
     else:
       icon = ''
 
-    if percent <= 5:
-      if not os.path.isfile(NAGBAR_PID_FILEPATH):
+    if percent <= 6:
+      if percent <= 3:
+        os.system('poweroff')
+      elif not os.path.isfile(NAGBAR_PID_FILEPATH):
         with open(NAGBAR_PID_FILEPATH, 'w') as f:
           for _ in range(NAGBAR_LINES):
             nagbar_process = sub.Popen(['i3-nagbar', '-m', BATTERY_LOW_MSG], stdout=sub.PIPE, stderr=sub.PIPE)
