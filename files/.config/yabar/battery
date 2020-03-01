@@ -35,7 +35,7 @@ def get_batteries():
       elif not os.path.isfile(NAGBAR_PID_FILEPATH):
         with open(NAGBAR_PID_FILEPATH, 'w') as f:
           for _ in range(NAGBAR_LINES):
-            nagbar_process = sub.Popen(['i3-nagbar', '-m', BATTERY_LOW_MSG], stdout=sub.PIPE, stderr=sub.PIPE)
+            nagbar_process = sub.Popen(['i3-nagbar', '-m', BATTERY_LOW_MSG], close_fds=True)
             f.write(str(nagbar_process.pid))
             f.write('\n')
     else:
