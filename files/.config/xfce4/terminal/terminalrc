@@ -29,4 +29,6 @@ MiscSlimTabs=FALSE
 BackgroundDarkness=0.850000
 MiscShowRelaunchDialog=TRUE
 MiscNewTabAdjacent=FALSE
+MiscSearchDialogOpacity=100
+MiscShowUnsafePasteDialog=TRUE
 

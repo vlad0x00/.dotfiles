@@ -1,5 +1,29 @@
-#!/bin/bash
+#!/usr/bin/env python3
 
-percent=$(pactl list sinks | grep '^[[:space:]]Volume:' | \
-  head -n $(( $SINK + 1 )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,')
-echo -n "vol $percent%"
+import os
+import errno
+import subprocess
+
+NAMED_PIPE = '/tmp/statusbar_volume'
+
+try:
+  if os.path.isfile(NAMED_PIPE):
+    os.remove(NAMED_PIPE)
+
+  try:
+    os.mkfifo(NAMED_PIPE)
+  except OSError as oe:
+    if oe.errno != errno.EEXIST:
+      raise
+
+  print("vol {}%".format(subprocess.run(['get-volume'], capture_output=True).stdout.decode().rstrip()), end='', flush=True)
+
+  while True:
+    with open(NAMED_PIPE) as pipe:
+      data = pipe.read().rstrip()
+      print("vol {}%".format(data), end='', flush=True)
+
+except KeyboardInterrupt:
+  pass
+
+os.remove(NAMED_PIPE)
