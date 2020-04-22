@@ -9,47 +9,24 @@ import i3ipc
 import threading
 
 FIFO = '/tmp/statusbar_volume'
-EXIT_CMD = 'EXIT'
-
-def work():
-  try:
-    print("vol {}%".format(subprocess.run(['get-volume'], capture_output=True).stdout.decode().rstrip()), end='', flush=True)
-    while True:
-      with open(FIFO) as pipe:
-        data = pipe.read().rstrip()
-        if data == EXIT_CMD:
-          break
-        print("vol {}%".format(data), end='', flush=True)
-  except Exception:
-    pass
-
-  if os.path.exists(FIFO):
-    os.remove(FIFO)
-
-def create_fifo():
-  if os.path.exists(FIFO):
-    os.remove(FIFO)
-
-  try:
-    os.mkfifo(FIFO)
-  except OSError as oe:
-    if oe.errno != errno.EEXIST:
-      raise
-create_fifo()
-
-worker_thread = threading.Thread(target=work)
-worker_thread.start()
 
 def handler(signum, frame):
-  if os.path.exists(FIFO):
-    with open(FIFO, "w") as pipe:
-      print(EXIT_CMD, file=pipe)
-  worker_thread.join()
+  if os.path.exists(FIFO): os.remove(FIFO)
   sys.exit(0)
+
+def listen(a, b):
+  i3 = i3ipc.Connection()
+  i3.on('shutdown', handler)
+  i3.main()
 
 signal.signal(signal.SIGTERM, handler)
 signal.signal(signal.SIGINT, handler)
 
-i3 = i3ipc.Connection()
-i3.on('shutdown', handler)
-i3.main()
+notification_thread = threading.Thread(target=listen)
+notification_thread.start()
+
+if os.path.exists(FIFO): os.remove(FIFO)
+os.mkfifo(FIFO)
+print("vol {}%".format(subprocess.run(['get-volume'], capture_output=True).stdout.decode().rstrip()), end='', flush=True)
+while True:
+  with open(FIFO) as pipe: print("vol {}%".format(pipe.read().rstrip()), end='', flush=True)
