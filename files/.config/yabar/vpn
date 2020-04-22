@@ -13,6 +13,7 @@ FIFO = '/tmp/statusbar_vpn'
 fifo_lock = threading.RLock()
 
 def handler(signum, frame):
+  global fifo_lock
   with fifo_lock:
     if os.path.exists(FIFO): os.remove(FIFO)
     sys.exit(0)
