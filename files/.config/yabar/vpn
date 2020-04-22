@@ -3,11 +3,32 @@
 import os
 import errno
 import subprocess
+import signal
+import sys
+import i3ipc
+import threading
 
 FIFO = '/tmp/statusbar_vpn'
+EXIT_CMD = 'EXIT'
 
-try:
-  if os.path.isfile(FIFO):
+def work():
+  try:
+    print("VPN: ↺", end='', flush=True)
+    print("VPN: {}".format(subprocess.run(['status-vpn'], capture_output=True).stdout.decode().rstrip()), end='', flush=True)
+    while True:
+      with open(FIFO) as pipe:
+        data = pipe.read().rstrip()
+        if data == EXIT_CMD:
+          break
+        print("VPN: {}".format(data), end='', flush=True)
+  except Exception:
+    pass
+
+  if os.path.exists(FIFO):
+    os.remove(FIFO)
+
+def create_fifo():
+  if os.path.exists(FIFO):
     os.remove(FIFO)
 
   try:
@@ -15,15 +36,21 @@ try:
   except OSError as oe:
     if oe.errno != errno.EEXIST:
       raise
+create_fifo()
 
-  print("VPN: Off", end='', flush=True)
+worker_thread = threading.Thread(target=work)
+worker_thread.start()
 
-  while True:
-    with open(FIFO) as pipe:
-      data = pipe.read().rstrip()
-      print("VPN: {}".format(data), end='', flush=True)
+def handler(signum, frame):
+  if os.path.exists(FIFO):
+    with open(FIFO, "w") as pipe:
+      print(EXIT_CMD, file=pipe)
+  worker_thread.join()
+  sys.exit(0)
 
-except KeyboardInterrupt:
-  pass
+signal.signal(signal.SIGTERM, handler)
+signal.signal(signal.SIGINT, handler)
 
-os.remove(FIFO)
+i3 = i3ipc.Connection()
+i3.on('shutdown', handler)
+i3.main()

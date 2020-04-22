@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ -z $(protonvpn s | grep Disconnected) ]]; then
+  echo On
+else
+  echo Off
+fi
