@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ "$EUID" -ne 0 ]; then
+  echo "Please run as root"
+  exit
+fi
+
+export USER=root
+export SUDO_USER=schutz
+export SUDO_UID=1000
+export SUDO_GID=1000
+
+if [[ -p /tmp/statusbar_vpn ]]; then
+  sudo -u $(stat -c %U /tmp/statusbar_vpn) bash -c "echo -n ↺ >/tmp/statusbar_vpn"
+fi
+
+protonvpn d
+
+if [[ -p /tmp/statusbar_vpn ]]; then
+  sudo -u $(stat -c %U /tmp/statusbar_vpn) bash -c "echo -n Off >/tmp/statusbar_vpn"
+fi

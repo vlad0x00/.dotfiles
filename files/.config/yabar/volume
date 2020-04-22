@@ -4,14 +4,14 @@ import os
 import errno
 import subprocess
 
-NAMED_PIPE = '/tmp/statusbar_volume'
+FIFO = '/tmp/statusbar_volume'
 
 try:
-  if os.path.isfile(NAMED_PIPE):
-    os.remove(NAMED_PIPE)
+  if os.path.isfile(FIFO):
+    os.remove(FIFO)
 
   try:
-    os.mkfifo(NAMED_PIPE)
+    os.mkfifo(FIFO)
   except OSError as oe:
     if oe.errno != errno.EEXIST:
       raise
@@ -19,11 +19,11 @@ try:
   print("vol {}%".format(subprocess.run(['get-volume'], capture_output=True).stdout.decode().rstrip()), end='', flush=True)
 
   while True:
-    with open(NAMED_PIPE) as pipe:
+    with open(FIFO) as pipe:
       data = pipe.read().rstrip()
       print("vol {}%".format(data), end='', flush=True)
 
 except KeyboardInterrupt:
   pass
 
-os.remove(NAMED_PIPE)
+os.remove(FIFO)

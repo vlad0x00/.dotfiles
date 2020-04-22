@@ -66,11 +66,11 @@
 #  Control + b:2 + Release
 
 #Increase volume
-"inc-volume; get-volume >/tmp/statusbar_volume"
+"inc-volume; if [[ -p /tmp/statusbar_volume ]]; then get-volume >/tmp/statusbar_volume; fi"
   XF86AudioRaiseVolume
 
 #Decrease volume
-"dec-volume; get-volume >/tmp/statusbar_volume"
+"dec-volume; if [[ -p /tmp/statusbar_volume ]]; then get-volume >/tmp/statusbar_volume; fi"
   XF86AudioLowerVolume
 
 #Mute/Unmute

@@ -1,11 +1,29 @@
-#!/bin/bash
+#!/usr/bin/env python3
 
-mv -f /tmp/protonvpn_status_new /tmp/protonvpn_status
-( protonvpn s >/tmp/protonvpn_status_new & )
-status=$(cat /tmp/protonvpn_status | grep 'Status:' | sed 's~Status:[[:space:]]*~VPN: ~' | sed 's~Connected~on~' | sed 's~Disconnected~off~')
-if [[ -z "$status" ]]; then
-  echo "VPN: off"
-else
-  echo "$status"
-fi
+import os
+import errno
+import subprocess
 
+FIFO = '/tmp/statusbar_vpn'
+
+try:
+  if os.path.isfile(FIFO):
+    os.remove(FIFO)
+
+  try:
+    os.mkfifo(FIFO)
+  except OSError as oe:
+    if oe.errno != errno.EEXIST:
+      raise
+
+  print("VPN: Off", end='', flush=True)
+
+  while True:
+    with open(FIFO) as pipe:
+      data = pipe.read().rstrip()
+      print("VPN: {}".format(data), end='', flush=True)
+
+except KeyboardInterrupt:
+  pass
+
+os.remove(FIFO)

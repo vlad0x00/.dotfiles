@@ -1,0 +1,50 @@
+#!/bin/bash
+
+if [ "$EUID" -ne 0 ]; then
+  echo "Please run as root"
+  exit
+fi
+
+export USER=root
+export SUDO_USER=schutz
+export SUDO_UID=1000
+export SUDO_GID=1000
+
+retries_until=0
+retries_while=0
+
+until [[ ! -z $(nmap -sn protonvpn.com 2>/dev/null | grep 'Host is up') ]]; do
+  ((retries_until++))
+  if [[ $retries_until -le 5 ]]; then
+    sleep 5
+  else
+    sleep 20
+  fi
+done
+
+if [[ -p /tmp/statusbar_vpn ]]; then
+  sudo -u $(stat -c %U /tmp/statusbar_vpn) bash -c "echo -n ↺ >/tmp/statusbar_vpn"
+fi
+
+result=$(protonvpn c -f | grep Connected)
+
+if [[ -p /tmp/statusbar_vpn ]]; then
+  if [[ -z "$result"  ]]; then
+    sudo -u $(stat -c %U /tmp/statusbar_vpn) bash -c "echo -n Off >/tmp/statusbar_vpn"
+  else
+    sudo -u $(stat -c %U /tmp/statusbar_vpn) bash -c "echo -n On >/tmp/statusbar_vpn"
+  fi
+fi
+
+while [[ ! -z $(nmap -sn protonvpn.com 2>/dev/null | grep 'Host is up') ]]; do
+  ((retries_while++))
+  if [[ $retries_while -le 5 ]]; then
+    sleep 5
+  else
+    sleep 20
+  fi
+done
+
+if [[ -p /tmp/statusbar_vpn ]]; then
+  sudo -u $(stat -c %U /tmp/statusbar_vpn) bash -c "echo -n Off >/tmp/statusbar_vpn"
+fi
