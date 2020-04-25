@@ -22,6 +22,7 @@ def listen(a, b):
   i3 = i3ipc.Connection()
   i3.on('shutdown', handler)
   i3.main()
+  handler(1, 2)
 
 signal.signal(signal.SIGTERM, handler)
 signal.signal(signal.SIGINT, handler)
