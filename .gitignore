@@ -1,5 +1,5 @@
 files/.config/*
-!files/.config/xfce4
+!files/.config/xfce4/terminal
 !files/.config/yabar
 !files/.config/redshift
 !files/.config/user-dirs.dirs
