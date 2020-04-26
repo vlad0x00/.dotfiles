@@ -5,34 +5,12 @@ import errno
 import subprocess
 import signal
 import sys
-import i3ipc
-import threading
 
 FIFO = '/tmp/statusbar_volume'
 
-fifo_lock = threading.RLock()
-
-def handler(signum, frame):
-  global fifo_lock
-  with fifo_lock:
-    if os.path.exists(FIFO): os.remove(FIFO)
-    sys.exit(0)
-
-def listen(a, b):
-  i3 = i3ipc.Connection()
-  i3.on('shutdown', handler)
-  i3.main()
-  handler(1, 2)
-
-signal.signal(signal.SIGTERM, handler)
-signal.signal(signal.SIGINT, handler)
-
-notification_thread = threading.Thread(target=listen)
-notification_thread.start()
-
-with fifo_lock:
-  if os.path.exists(FIFO): os.remove(FIFO)
+if not os.path.exists(FIFO):
   os.mkfifo(FIFO)
+
 print("vol {}%".format(subprocess.run(['get-volume'], capture_output=True).stdout.decode().rstrip()), end='', flush=True)
 while True:
   with open(FIFO) as pipe: print("vol {}%".format(pipe.read().rstrip()), end='', flush=True)

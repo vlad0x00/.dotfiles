@@ -10,12 +10,14 @@ export SUDO_USER=schutz
 export SUDO_UID=1000
 export SUDO_GID=1000
 
-if [[ -p /tmp/statusbar_vpn ]]; then
-  sudo -u $(stat -c %U /tmp/statusbar_vpn) bash -c "echo -n ↺ >/tmp/statusbar_vpn"
+STATUSBAR_VPN_FIFO=/tmp/statusbar_vpn
+
+if [[ -p $STATUSBAR_VPN_FIFO ]]; then
+  sudo -u $(stat -c %U $STATUSBAR_VPN_FIFO) bash -c "exec 3<>$STATUSBAR_VPN_FIFO; echo -n ↺ >$STATUSBAR_VPN_FIFO"
 fi
 
 protonvpn d
 
-if [[ -p /tmp/statusbar_vpn ]]; then
-  sudo -u $(stat -c %U /tmp/statusbar_vpn) bash -c "echo -n Off >/tmp/statusbar_vpn"
+if [[ -p $STATUSBAR_VPN_FIFO ]]; then
+  sudo -u $(stat -c %U $STATUSBAR_VPN_FIFO) bash -c "exec 3<>$STATUSBAR_VPN_FIFO; echo -n Off >$STATUSBAR_VPN_FIFO"
 fi

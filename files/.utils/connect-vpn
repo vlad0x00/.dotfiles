@@ -13,6 +13,8 @@ export SUDO_GID=1000
 retries_until=0
 retries_while=0
 
+STATUSBAR_VPN_FIFO=/tmp/statusbar_vpn
+
 until [[ ! -z $(nmap -sn protonvpn.com 2>/dev/null | grep 'Host is up') ]]; do
   ((retries_until++))
   if [[ $retries_until -le 5 ]]; then
@@ -22,17 +24,17 @@ until [[ ! -z $(nmap -sn protonvpn.com 2>/dev/null | grep 'Host is up') ]]; do
   fi
 done
 
-if [[ -p /tmp/statusbar_vpn ]]; then
-  sudo -u $(stat -c %U /tmp/statusbar_vpn) bash -c "echo -n ↺ >/tmp/statusbar_vpn"
+if [[ -p $STATUSBAR_VPN_FIFO ]]; then
+  sudo -u $(stat -c %U $STATUSBAR_VPN_FIFO) bash -c "exec 3<>$STATUSBAR_VPN_FIFO; echo -n ↺ >$STATUSBAR_VPN_FIFO"
 fi
 
 result=$(protonvpn c -f | grep Connected)
 
-if [[ -p /tmp/statusbar_vpn ]]; then
+if [[ -p $STATUSBAR_VPN_FIFO ]]; then
   if [[ -z "$result"  ]]; then
-    sudo -u $(stat -c %U /tmp/statusbar_vpn) bash -c "echo -n Off >/tmp/statusbar_vpn"
+    sudo -u $(stat -c %U $STATUSBAR_VPN_FIFO) bash -c "exec 3<>$STATUSBAR_VPN_FIFO; echo -n Off >$STATUSBAR_VPN_FIFO"
   else
-    sudo -u $(stat -c %U /tmp/statusbar_vpn) bash -c "echo -n On >/tmp/statusbar_vpn"
+    sudo -u $(stat -c %U $STATUSBAR_VPN_FIFO) bash -c "exec 3<>$STATUSBAR_VPN_FIFO; echo -n On >$STATUSBAR_VPN_FIFO"
   fi
 fi
 
@@ -45,6 +47,6 @@ while [[ ! -z $(nmap -sn protonvpn.com 2>/dev/null | grep 'Host is up') ]]; do
   fi
 done
 
-if [[ -p /tmp/statusbar_vpn ]]; then
-  sudo -u $(stat -c %U /tmp/statusbar_vpn) bash -c "echo -n Off >/tmp/statusbar_vpn"
+if [[ -p $STATUSBAR_VPN_FIFO ]]; then
+  sudo -u $(stat -c %U $STATUSBAR_VPN_FIFO) bash -c "exec 3<>$STATUSBAR_VPN_FIFO; echo -n Off >$STATUSBAR_VPN_FIFO"
 fi
