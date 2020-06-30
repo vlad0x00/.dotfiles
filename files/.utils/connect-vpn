@@ -28,7 +28,7 @@ if [[ -p $STATUSBAR_VPN_FIFO ]]; then
   sudo -u $(stat -c %U $STATUSBAR_VPN_FIFO) bash -c "exec 3<>$STATUSBAR_VPN_FIFO; echo -n ↺ >$STATUSBAR_VPN_FIFO"
 fi
 
-result=$(protonvpn c -f | grep Connected)
+result=$(protonvpn c -r | grep Connected)
 
 if [[ -p $STATUSBAR_VPN_FIFO ]]; then
   if [[ -z "$result"  ]]; then
