@@ -33,7 +33,6 @@ fi
 xbindkeys &
 compton -b
 wal -i ~/.wallpapers
-/usr/lib/geoclue-2.0/demos/agent &
 redshift &
 keyboard-nightlight &
 exec i3
