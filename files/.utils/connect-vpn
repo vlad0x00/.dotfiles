@@ -13,6 +13,12 @@ export SUDO_GID=1000
 retries_until=0
 retries_while=0
 
+if [[ $# -eq 1 && $1 == "fast" ]]; then
+  protonvpn_args="-f"
+else
+  protonvpn_args="-r"
+fi
+
 STATUSBAR_VPN_FIFO=/tmp/statusbar_vpn
 
 until [[ ! -z $(nmap -sn protonvpn.com 2>/dev/null | grep 'Host is up') ]]; do
@@ -28,7 +34,7 @@ if [[ -p $STATUSBAR_VPN_FIFO ]]; then
   sudo -u $(stat -c %U $STATUSBAR_VPN_FIFO) bash -c "exec 3<>$STATUSBAR_VPN_FIFO; echo -n ↺ >$STATUSBAR_VPN_FIFO"
 fi
 
-result=$(protonvpn c -r | grep Connected)
+result=$(protonvpn c $protonvpn_args | grep Connected)
 
 if [[ -p $STATUSBAR_VPN_FIFO ]]; then
   if [[ -z "$result"  ]]; then
