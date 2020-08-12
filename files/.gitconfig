@@ -1,3 +1,5 @@
 [user]
 	name = schutzekatze
-	email = vladimir.nik94@gmail.com
+	email = vladlich@protonmail.com
+[pull]
+	rebase = true
