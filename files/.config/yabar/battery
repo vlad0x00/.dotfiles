@@ -10,11 +10,15 @@ BATTERY_LOW_MSG = 'BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW BATTERY LOW B
 NAGBAR_LINES = 5
 
 def get_batteries():
-  p = sub.run(['acpi', '-b'], capture_output=True)
+  p = sub.run(['acpi', '-ab'], capture_output=True)
   acpi_stdout = p.stdout.decode('utf-8')
   acpi_stderr = p.stderr.decode('utf-8')
 
-  batteries = acpi_stdout.split('\n')
+  lines = acpi_stdout.split('\n')
+  
+  adapters = filter(lambda l : l.startswith('Adapter'), lines)
+  batteries = filter(lambda l : l.startswith('Battery'), lines)
+
   output = ''
   for i, battery in enumerate(batteries):
     if battery == '': continue
@@ -22,7 +26,7 @@ def get_batteries():
     tokens = battery.split(',')
 
     percent = int(tokens[1][1:-1])
-    if 'Charging' in battery or 'Full' in battery:
+    if 'Charging' in battery or 'Full' in battery or any([ 'on-line' in adapter for adapter in adapters ]):
       icon = ''
     else:
       if percent > 87:
