@@ -2,5 +2,6 @@ files/.config/*
 !files/.config/xfce4/terminal
 !files/.config/yabar
 !files/.config/redshift
+!files/.config/picom
 !files/.config/user-dirs.dirs
 !files/.config/user-dirs.locale
