@@ -5,3 +5,4 @@ files/.config/*
 !files/.config/picom
 !files/.config/user-dirs.dirs
 !files/.config/user-dirs.locale
+!files/.config/htop
