@@ -1,0 +1,3 @@
+#!/bin/bash
+
+rclone sync projects gdrive-encrypted:projects -P --max-age 2d && rclone sync random gdrive-encrypted:random -P --max-age 2d && rclone sync library gdrive-encrypted:library -P --max-age 2d
