@@ -1,0 +1,8 @@
+#!/bin/bash
+
+dirs=( projects random library )
+flags="--progress --no-traverse --max-age 3d --update"
+
+for dir in ${dirs[@]}; do
+  rclone copy $HOME/${dir} gdrive-encrypted:${dir} ${flags}
+done

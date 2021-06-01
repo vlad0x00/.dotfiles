@@ -1,3 +1,8 @@
 #!/bin/bash
 
-rclone sync projects gdrive-encrypted:projects -P && rclone sync random gdrive-encrypted:random -P && rclone sync library gdrive-encrypted:library -P
+dirs=( projects random library )
+flags="--progress"
+
+for dir in ${dirs[@]}; do
+  rclone sync $HOME/${dir} gdrive-encrypted:${dir} ${flags}
+done
