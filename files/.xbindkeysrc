@@ -87,11 +87,15 @@
 
 # Take a screenshot
 "xfce4-screenshooter"
-  Shift + Print
+  Control + Shift + 1
 
 # Copy whatever emote
 "echo -n '¯\_(ツ)_/¯' | xclip -selection clipboard"
-  Control + Print
+  Control + Shift + 2
+
+# Copy kitty emote
+"echo -n 'ᓚᘏᗢ' | xclip -selection clipboard"
+  Control + Shift + 3
 
 # Restart i3
 "i3-msg restart"
