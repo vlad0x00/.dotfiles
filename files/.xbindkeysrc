@@ -78,11 +78,11 @@
   XF86AudioMute
 
 # Increase brightness
-"xbacklight +15"
+"brightnessctl set +10%"
   XF86MonBrightnessUp
 
 # Increase brightness
-"xbacklight -15"
+"brightnessctl set 10%-"
   XF86MonBrightnessDown
 
 # Take a screenshot
