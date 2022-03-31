@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dirs=( projects random library )
+dirs=( projects random archive )
 flags="--progress --no-traverse --max-age 3d --update"
 
 for dir in ${dirs[@]}; do

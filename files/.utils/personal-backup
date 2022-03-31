@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dirs=( projects random library )
+dirs=( projects random archive )
 flags="--progress"
 
 for dir in ${dirs[@]}; do
