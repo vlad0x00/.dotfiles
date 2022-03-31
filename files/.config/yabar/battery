@@ -42,7 +42,7 @@ def get_batteries():
 
     if percent <= 6:
       if percent <= 3:
-        os.system('poweroff')
+        if percent > 0: os.system('poweroff')
       elif not os.path.isfile(NAGBAR_PID_FILEPATH):
         with open(NAGBAR_PID_FILEPATH, 'w') as f:
           for _ in range(NAGBAR_LINES):
