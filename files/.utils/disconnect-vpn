@@ -6,7 +6,7 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 export USER=root
-export SUDO_USER=schutz
+export SUDO_USER=chutzy
 export SUDO_UID=1000
 export SUDO_GID=1000
 
