@@ -1,0 +1,100 @@
+#!/bin/bash
+
+DRIVE=/dev/sr0
+DATE=$(date +%Y-%m-%d)
+ISO_FILE="backup-${DATE}.iso"
+ISO_NAME="BACKUP-${DATE}"
+MKISOFS_OPTS="-V 'BACKUP-${DATE}' -r -J -iso-level 3"
+
+# Sane bash
+set -o errexit
+
+# Check for argument
+if [ -z "$1" ]; then
+    echo "Usage: $0 <path to dir>"
+    exit 1
+fi
+TO_BACKUP=$1
+
+# User info
+cat << EOF
+This script will eject and close the CD tray. Please make sure that:
+1) There is a CD in the drive.
+2) There is enough space for the drive to eject and close.
+3) There is enough space on the CD for the backup.
+EOF
+read -p "Press [Enter] to continue... "
+
+# Check there is a CD in the drive
+# Disable exit on error
+set +o errexit
+dd if=/dev/sr0 of=/dev/null count=1 2>/dev/null
+if [ $? -ne 0 ]; then
+    echo "Please insert a CD into the drive."
+    exit 1
+fi
+set -o errexit
+
+# Get current date in ISO format
+echo "Backup date: $DATE"
+
+# Print drive info
+cdrecord dev=${DRIVE} -checkdrive
+
+# Check if DRIVE is mounted
+# Disable exit on error
+echo "Checking if drive is mounted..."
+set +o errexit
+if mount | grep ${DRIVE}; then
+    set -o errexit
+    echo "Drive ${DRIVE} is mounted. Unmounting..."
+    umount ${DRIVE}
+fi
+set -o errexit
+
+# Check if ISO already exists
+if [ -f ${ISO_FILE} ]; then
+    echo "ISO file ${ISO_FILE} already exists. Exiting..."
+    exit 1
+fi
+# Make the ISO
+echo "Making ISO..."
+mkisofs ${MKISOFS_OPTS} -o ${ISO_FILE} ${TO_BACKUP}
+
+# Burn, baby, burn
+echo "Burning..."
+growisofs -dvd-compat -Z ${DRIVE}=${ISO_FILE}
+
+# Eject drive
+echo "Ejecting..."
+eject ${DRIVE}
+
+sleep 5
+
+# Close tray
+echo "Closing tray..."
+eject -t ${DRIVE}
+
+# Get ISO SHA256 sum
+echo "Getting ISO SHA256 sum..."
+ISO_SHA256SUM=$(sha256sum ${ISO_FILE} | cut -d' ' -f1)
+echo "ISO SHA256 sum: ${ISO_SHA256SUM}"
+
+# Get CD SHA256 sum
+echo "Getting CD data SHA256 sum..."
+WRITTEN_BLOCKS=$(expr $(du -b ${ISO_FILE} | awk '{print $1}') / 2048)
+CD_SHA256SUM=$(dd if=${DRIVE} bs=2048 count=${WRITTEN_BLOCKS} | sha256sum | cut -d' ' -f1)
+echo "CD SHA256 sum: ${CD_SHA256SUM}"
+
+# Check sums
+if [ "${ISO_SHA256SUM}" != "${CD_SHA256SUM}" ]; then
+    echo "ERROR: ISO and CD SHA256 sums do not match."
+    exit 1
+fi
+
+# Clean up
+echo "Cleaning up..."
+rm ${ISO_FILE}
+
+# Success!
+echo "Success!"

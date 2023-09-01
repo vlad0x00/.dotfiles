@@ -36,5 +36,10 @@ if [[ -d ~/.wallpapers ]]; then
   wal -i ~/.wallpapers
 fi
 redshift &
-keyboard-nightlight &
+firefox &
+spotify-launcher &
+keepassxc &
+signal-desktop &
+discord &
+telegram-desktop &
 exec i3
