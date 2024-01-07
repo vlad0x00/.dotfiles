@@ -1,34 +1,10 @@
-/* Main toolbar container */
-#navigator-toolbox {
-  --custom-tab-height: 44px; /* Adjust this value to increase the tab bar height */
-  position: relative;
-  padding-top: 0;
-  transition: padding-top 200ms ease-in-out;
-}
-
-/* Hide the tab bar by default */
 #TabsToolbar {
-  opacity: 0;
-  visibility: hidden;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: 1;
-  transition: opacity 200ms ease-in-out, visibility 200ms ease-in-out;
+  visibility: collapse !important;
 }
 
-/* Show the tab bar on hover */
-#navigator-toolbox:hover {
-  padding-top: var(--custom-tab-height); /* Use the custom height */
+#TabsToolbar .toolbar-items {
+  visibility: visible !important;
+  display: flex;
+  position: fixed;
+  right: 0;
 }
-
-#navigator-toolbox:hover #TabsToolbar {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Ensure the tab container spans the entire width */
-#tabbrowser-tabs {
-  width: 100%;
-}
-
