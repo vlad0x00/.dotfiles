@@ -9,3 +9,4 @@ files/.config/*
 
 files/.mozilla/*
 !files/.mozilla/firefox/*.default-release/chrome
+!files/.mozilla/firefox/*.default-release/prefs.js
