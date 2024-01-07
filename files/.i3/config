@@ -197,9 +197,11 @@ set $ws9 "9: &#xf1bc;"
 
 exec_always --no-startup-id "pkill yabar; ~/.config/yabar/yabar-setup.sh; yabar -c /tmp/yabar.conf"
 
-assign [class="Firefox"] 1
+assign [class="firefox"] 1
 assign [class="Code"] 2
+assign [class="steam"] 5
 assign [class="KeePassXC"] 9
+for_window [class="Spotify"] move to workspace 9
 assign [class="Signal"] 10
 assign [class="discord"] 10
 assign [class="TelegramDesktop"] 10
