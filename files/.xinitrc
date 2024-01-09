@@ -42,4 +42,5 @@ keepassxc &
 signal-desktop &
 discord &
 telegram-desktop &
+nm-applet &
 exec i3
