@@ -205,6 +205,7 @@ for_window [class="Spotify"] move to workspace 9
 assign [class="Signal"] 10
 assign [class="discord"] 10
 assign [class="TelegramDesktop"] 10
+assign [class="Slack"] 10
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)

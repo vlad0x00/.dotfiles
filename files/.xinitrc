@@ -42,5 +42,7 @@ keepassxc &
 signal-desktop &
 discord &
 telegram-desktop &
+slack &
 nm-applet &
+/usr/lib/polkit-kde-authentication-agent-1 &
 exec i3
