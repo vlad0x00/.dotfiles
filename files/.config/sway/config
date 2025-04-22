@@ -179,6 +179,8 @@ bindsym XF86MonBrightnessUp exec brightnessctl set +10%
 bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
 
 bindsym Control+Shift+1 exec xfce4-screenshooter
+bindsym Control+Shift+2 exec echo -n '¯\_(ツ)_/¯' | wl-copy
+bindsym Control+Shift+3 exec echo -n 'ᓚᘏᗢ' | wl-copy
 
 assign [app_id="firefox"] 1
 assign [class="Code"] 2
