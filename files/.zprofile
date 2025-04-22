@@ -1,2 +1,3 @@
 [[ -f ~/.zshrc ]] && . ~/.zshrc
-[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
+[ "$(tty)" = "/dev/tty1" ] && exec sway --unsupported-gpu
+#[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
