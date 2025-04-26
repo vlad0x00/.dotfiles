@@ -205,3 +205,5 @@ exec signal-desktop
 exec discord
 exec telegram-desktop
 exec slack
+
+# Missing fade in/out when transitioning between windows
