@@ -1,8 +1,8 @@
 files/.config/*
 !files/.config/sway
+!files/.config/waybar
 !files/.config/xfce4/terminal
 !files/.config/redshift
-!files/.config/picom
 !files/.config/user-dirs.dirs
 !files/.config/user-dirs.locale
 !files/.config/htop
