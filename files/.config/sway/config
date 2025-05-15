@@ -182,6 +182,8 @@ bindsym Control+Shift+1 exec xfce4-screenshooter
 bindsym Control+Shift+2 exec echo -n '¯\_(ツ)_/¯' | wl-copy
 bindsym Control+Shift+3 exec echo -n 'ᓚᘏᗢ' | wl-copy
 
+corner_radius 10
+
 assign [app_id="firefox"] 1
 assign [class="Code"] 2
 assign [class="steam"] 5
