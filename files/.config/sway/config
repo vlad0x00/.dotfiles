@@ -192,9 +192,10 @@ assign [class="discord"] 10
 assign [app_id="org.telegram.desktop"] 10
 assign [class="Slack"] 10
 
+exec_always sh -c '[ -d ~/.wallpapers ] && wal -ne -i ~/.wallpapers && swaymsg output "*" bg "$(< ~/.cache/wal/wal)" fill'
+
 bar swaybar_command waybar
 
-exec_always sh -c '[ -d ~/.wallpapers ] && wal -ne -i ~/.wallpapers && swaymsg output "*" bg "$(< ~/.cache/wal/wal)" fill'
 exec nm-applet
 exec /usr/lib/polkit-kde-authentication-agent-1
 exec redshift
