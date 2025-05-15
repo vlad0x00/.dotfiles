@@ -8,4 +8,4 @@ My Linux dotfiles
 - Terminal: xfce4
  
 Visual configuration in action
-![alt text](https://i.imgur.com/gO6FiCh.png)
+![alt text](demo.png)
