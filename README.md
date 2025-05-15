@@ -3,8 +3,8 @@ My Linux dotfiles
 
 - Distro: Arch
 - Shell: zsh
-- WM: i3-gaps
-- Status bar: yabar
+- WM: swayfx
+- Status bar: waybar
 - Terminal: xfce4
  
 Visual configuration in action
