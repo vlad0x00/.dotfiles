@@ -205,11 +205,11 @@ exec redshift
 exec keepassxc
 
 # The following require internet connection and should wait for protonvpn
-exec "sh -c 'sleep 1 && firefox'"
-exec "sh -c 'sleep 1 && spotify-launcher'"
-exec "sh -c 'sleep 1 && signal-desktop'"
-exec "sh -c 'sleep 1 && discord'"
-exec "sh -c 'sleep 1 && telegram-desktop'"
-exec "sh -c 'sleep 1 && slack'"
+exec "sh -c 'sleep 2 && firefox'"
+exec "sh -c 'sleep 2 && spotify-launcher'"
+exec "sh -c 'sleep 2 && signal-desktop'"
+exec "sh -c 'sleep 2 && discord'"
+exec "sh -c 'sleep 2 && telegram-desktop'"
+exec "sh -c 'sleep 2 && slack'"
 
 # Missing fade in/out when transitioning between windows
