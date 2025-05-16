@@ -200,13 +200,16 @@ bar swaybar_command waybar
 
 exec nm-applet
 exec /usr/lib/polkit-kde-authentication-agent-1
+exec protonvpn-app
 exec redshift
-exec firefox
-exec spotify-launcher
 exec keepassxc
-exec signal-desktop
-exec discord
-exec telegram-desktop
-exec slack
+
+# The following require internet connection and should wait for protonvpn
+exec "sh -c 'sleep 1 && firefox'"
+exec "sh -c 'sleep 1 && spotify-launcher'"
+exec "sh -c 'sleep 1 && signal-desktop'"
+exec "sh -c 'sleep 1 && discord'"
+exec "sh -c 'sleep 1 && telegram-desktop'"
+exec "sh -c 'sleep 1 && slack'"
 
 # Missing fade in/out when transitioning between windows
