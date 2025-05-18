@@ -51,23 +51,23 @@ window#waybar.hidden {
 }
 
 #privacy {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 #tray {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 #language {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 #wireplumber {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 #wireplumber.muted {
@@ -75,12 +75,12 @@ window#waybar.hidden {
 }
 
 #disk {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 #cpu {
-    padding-left: 10px;
+    padding-left: 8px;
     padding-right: 5px;
 }
 
@@ -95,7 +95,7 @@ window#waybar.hidden {
 
 #memory {
     padding-left: 5px;
-    padding-right: 10px;
+    padding-right: 8px;
 }
 
 #memory.warning {
@@ -107,8 +107,8 @@ window#waybar.hidden {
 }
 
 #battery {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 #battery.charging {
