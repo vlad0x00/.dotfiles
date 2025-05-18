@@ -184,6 +184,10 @@ bindsym Control+Shift+3 exec echo -n 'ᓚᘏᗢ' | wl-copy
 
 corner_radius 10
 
+input type:keyboard {
+    xkb_layout us,rs(latinunicode),rs,de
+}
+
 assign [app_id="firefox"] 1
 assign [class="Code"] 2
 assign [class="steam"] 5

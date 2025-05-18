@@ -1,0 +1,131 @@
+#!/bin/bash
+set -e  # Exit on error
+
+# Define cleanup function - only used after we've started creating files
+cleanup() {
+    echo -e "\nBackup process interrupted. Cleaning up..."
+    [ -f "$BACKUP_FILE.tmp" ] && rm -f "$BACKUP_FILE.tmp" 2>/dev/null
+    exit 1
+}
+
+# Handle interrupts during user input - just exit cleanly
+input_interrupt() {
+    echo -e "\nOperation cancelled."
+    exit 1
+}
+
+# Initially set trap for clean exit during input
+trap input_interrupt INT TERM
+
+# Fixed backup directories
+BACKUP_DIRS=("projects" "random" "archive")
+
+# Configuration options
+COMPRESSION_LEVEL=19  # Adjust as needed (higher = better compression but slower)
+
+# Check if directories exist
+for dir in "${BACKUP_DIRS[@]}"; do
+    if [ ! -d "$dir" ]; then
+        echo "Error: Directory '$dir' does not exist."
+        exit 1
+    fi
+done
+
+# Check if required tools are installed
+for cmd in pv zstd gpg bc numfmt; do
+    if ! command -v "$cmd" >/dev/null 2>&1; then
+        echo "Error: '$cmd' is required but not installed."
+        exit 1
+    fi
+done
+
+# Calculate total size of backup
+TOTAL_SIZE=$(du -sb "${BACKUP_DIRS[@]}" | awk '{s+=$1} END {print s}')
+
+# Check available disk space (with 10% buffer)
+NEEDED_SPACE=$(echo "$TOTAL_SIZE * 1.1" | bc | cut -d. -f1)
+AVAILABLE_SPACE=$(df -B1 . | awk 'NR==2 {print $4}')
+
+if [ "$AVAILABLE_SPACE" -lt "$NEEDED_SPACE" ]; then
+    echo "Warning: You may not have enough disk space."
+    echo "Needed (conservative estimate): $(numfmt --to=iec-i --suffix=B $NEEDED_SPACE)"
+    echo "Available: $(numfmt --to=iec-i --suffix=B $AVAILABLE_SPACE)"
+    
+    read -p "Continue anyway? (y/n): " CONFIRM
+    if [[ "$CONFIRM" != "y" && "$CONFIRM" != "Y" ]]; then
+        echo "Backup aborted."
+        exit 1
+    fi
+fi
+
+# Create backup filename with date
+TIMESTAMP=$(date +%Y-%m-%d)
+BACKUP_FILE="backup-$TIMESTAMP.tar.zst.gpg"
+
+# Check if file already exists
+if [ -f "$BACKUP_FILE" ]; then
+    read -p "File '$BACKUP_FILE' already exists. Overwrite? (y/n): " CONFIRM
+    if [[ "$CONFIRM" != "y" && "$CONFIRM" != "Y" ]]; then
+        echo "Backup aborted."
+        exit 1
+    fi
+fi
+
+# Ask for password (visible as typed)
+read -p "Enter encryption password: " PASSWORD
+echo
+
+# Now that we're about to create files, change the trap to use cleanup
+trap cleanup INT TERM
+
+# Create backup with progress indication
+echo "Creating backup of: ${BACKUP_DIRS[*]}"
+echo "Total uncompressed size: $(numfmt --to=iec-i --suffix=B $TOTAL_SIZE)"
+echo "Starting backup process..."
+
+# Use a temporary file for atomic operations and data safety
+set +e  # Temporarily disable exit on error for better pipeline error handling
+tar -cf - "${BACKUP_DIRS[@]}" | \
+  pv -s "$TOTAL_SIZE" | \
+  zstd -$COMPRESSION_LEVEL -T0 | \
+  gpg --batch --passphrase "$PASSWORD" -c -o "$BACKUP_FILE.tmp"
+
+PIPELINE_STATUS=${PIPESTATUS[*]}
+set -e  # Re-enable exit on error
+
+# Check if the pipeline succeeded
+if [[ "${PIPELINE_STATUS// /}" =~ [^0] ]]; then
+    echo "Error: Backup creation failed."
+    cleanup
+fi
+
+# Move temp file to final location (atomic operation)
+mv "$BACKUP_FILE.tmp" "$BACKUP_FILE"
+
+echo "Backup complete: $BACKUP_FILE ($(du -h "$BACKUP_FILE" | cut -f1))"
+
+# Verify the password works
+echo
+# Change trap back to simple interrupt for verification
+trap input_interrupt INT TERM
+read -p "Re-enter password to verify backup integrity: " VERIFY_PASSWORD
+echo
+
+# Try to decrypt with --dry-run to check if password works
+if gpg --batch --passphrase "$VERIFY_PASSWORD" --decrypt --dry-run "$BACKUP_FILE" >/dev/null 2>&1; then
+    echo "✅ Password verification successful. Archive is properly encrypted."
+    
+    # Calculate compression ratio
+    ORIGINAL_SIZE=$(numfmt --to=iec-i --suffix=B $TOTAL_SIZE)
+    COMPRESSED_SIZE=$(du -h "$BACKUP_FILE" | cut -f1)
+    echo "Compression: $ORIGINAL_SIZE → $COMPRESSED_SIZE"
+else
+    echo "❌ Password verification failed! The passwords might not match or the archive is corrupted."
+    exit 1
+fi
+
+# We're done, disable traps
+trap '' INT TERM EXIT
+
+echo
+echo "To restore, use: gpg -d $BACKUP_FILE | zstd -d | tar -xf -"

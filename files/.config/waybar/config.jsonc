@@ -51,7 +51,8 @@
     },
 
     "sway/language": {
-	"tooltip": false
+	"tooltip": false,
+	"on-click": "swaymsg input type:keyboard xkb_switch_layout next"
     },
 
     "wireplumber": {
