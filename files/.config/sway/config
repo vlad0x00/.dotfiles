@@ -213,7 +213,7 @@ exec "sh -c 'sleep 2 && firefox'"
 exec "sh -c 'sleep 2 && spotify-launcher'"
 exec "sh -c 'sleep 2 && signal-desktop'"
 exec "sh -c 'sleep 2 && discord'"
-exec "sh -c 'sleep 2 && telegram-desktop'"
+exec "sh -c 'sleep 2 && Telegram'"
 exec "sh -c 'sleep 2 && slack'"
 
 # Missing fade in/out when transitioning between windows
