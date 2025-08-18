@@ -45,6 +45,11 @@ window#waybar.hidden {
     color: white;
 }
 
+#tray {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
 #clock {
     padding-left: 10px;
     padding-right: 10px;
@@ -55,7 +60,7 @@ window#waybar.hidden {
     padding-right: 8px;
 }
 
-#tray {
+#bluetooth {
     padding-left: 8px;
     padding-right: 8px;
 }
