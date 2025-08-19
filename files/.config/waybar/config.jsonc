@@ -4,9 +4,9 @@
     // "height": 30, // Waybar height (to be removed for auto height)
     "margin": "13 26 -8 26",
     // "width": 1280, // Waybar width
-    "modules-left": ["battery", "network", "bluetooth", "tray", "sway/workspaces", "privacy"],
-    "modules-center": [],
-    "modules-right": ["sway/language", "wireplumber", "disk", "memory", "cpu", "temperature", "clock"],
+    "modules-left": ["battery", "network", "bluetooth", "tray", "sway/workspaces"],
+    "modules-center": ["clock"],
+    "modules-right": ["privacy", "sway/language", "wireplumber", "disk", "memory", "cpu", "temperature"],
 
 
     //***************************
@@ -54,6 +54,11 @@
 
     "sway/workspaces": {
         "disable-scroll": true,
+    },
+
+    "clock": {
+        "interval" : 15,
+        "format": "{:%Y-%m-%d (%a) %H:%M:%S}"
     },
 
     "privacy": {
@@ -115,11 +120,6 @@
         "format": "{icon} {temperatureC}°C",
         "format-icons": ["", "", "", "", ""],
         "tooltip": false,
-    },
-    
-    "clock": {
-        "interval" : 15,
-        "format": "{:%Y-%m-%d (%a) %H:%M:%S}"
     },
 }
 
