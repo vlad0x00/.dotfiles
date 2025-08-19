@@ -24,32 +24,6 @@ window#waybar.hidden {
     background: alpha(@background, 0.85);
 }
 
-#workspaces button {
-    transition: none;
-    color: @color2;
-    background: transparent;
-    padding: 5px;
-}
-
-/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
-#workspaces button:hover {
-    transition: none;
-    box-shadow: inherit;
-    text-shadow: inherit;
-    border-radius: inherit;
-    color: @foreground;
-    background: alpha(@color15, 0.5);
-}
-
-#workspaces button.focused {
-    color: white;
-}
-
-#tray {
-    padding-left: 8px;
-    padding-right: 8px;
-}
-
 #battery {
     padding-left: 8px;
     padding-right: 8px;
@@ -83,6 +57,32 @@ window#waybar.hidden {
 #bluetooth {
     padding-left: 8px;
     padding-right: 8px;
+}
+
+#tray {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#workspaces button {
+    transition: none;
+    color: @color2;
+    background: transparent;
+    padding: 5px;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+#workspaces button:hover {
+    transition: none;
+    box-shadow: inherit;
+    text-shadow: inherit;
+    border-radius: inherit;
+    color: @foreground;
+    background: alpha(@color15, 0.5);
+}
+
+#workspaces button.focused {
+    color: white;
 }
 
 #privacy {

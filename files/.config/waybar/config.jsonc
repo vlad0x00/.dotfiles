@@ -4,7 +4,7 @@
     // "height": 30, // Waybar height (to be removed for auto height)
     "margin": "13 26 -8 26",
     // "width": 1280, // Waybar width
-    "modules-left": ["sway/workspaces", "tray", "battery", "network", "bluetooth", "privacy"],
+    "modules-left": ["battery", "network", "bluetooth", "tray", "sway/workspaces", "privacy"],
     "modules-center": [],
     "modules-right": ["sway/language", "wireplumber", "disk", "memory", "cpu", "temperature", "clock"],
 
@@ -12,15 +12,6 @@
     //***************************
     //*  Modules configuration  *
     //***************************
-
-    "sway/workspaces": {
-        "disable-scroll": true,
-    },
-
-    "tray": {
-        "icon-size": 16,
-        "spacing": 6
-    },
 
     "battery": {
         "states": {
@@ -37,7 +28,7 @@
     "network": {
         "interface" : "wlan0",
         "format": "{ifname}",
-        "format-wifi": " {essid}",
+        "format-wifi": " {essid} ({signalStrength}%)",
         "format-ethernet": " {ipaddr}/{cidr}",
         "format-disconnected": "", //An empty format will hide the module.
         "tooltip-format": "{ifname} via {gwaddr}",
@@ -54,6 +45,15 @@
         "tooltip-format-connected": "{controller_alias} {controller_address}\n\n{device_enumerate}",
         "tooltip-format-enumerate-connected": "{device_alias} {device_address}",
         "tooltip-format-enumerate-connected-battery": "{device_alias} {device_address} {device_battery_percentage}%"
+    },
+
+    "tray": {
+        "icon-size": 16,
+        "spacing": 6
+    },
+
+    "sway/workspaces": {
+        "disable-scroll": true,
     },
 
     "privacy": {
