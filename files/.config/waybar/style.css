@@ -16,7 +16,7 @@ window#waybar.hidden {
     opacity: 0.2;
 }
 
-.modules-left, .modules-center, .modules-right {
+.modules-left, .modules-right {
     padding-left: 5px;
     padding-right: 5px;
     border-radius: 10px;
@@ -50,67 +50,6 @@ window#waybar.hidden {
     padding-right: 8px;
 }
 
-#clock {
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-#privacy {
-    padding-left: 8px;
-    padding-right: 8px;
-}
-
-#bluetooth {
-    padding-left: 8px;
-    padding-right: 8px;
-}
-
-#language {
-    padding-left: 8px;
-    padding-right: 8px;
-}
-
-#wireplumber {
-    padding-left: 8px;
-    padding-right: 8px;
-}
-
-#wireplumber.muted {
-    background-color: #eb4d4b;
-}
-
-#disk {
-    padding-left: 8px;
-    padding-right: 8px;
-}
-
-#cpu {
-    padding-left: 8px;
-    padding-right: 5px;
-}
-
-#temperature {
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-#temperature.critical {
-    background-color: #eb4d4b;
-}
-
-#memory {
-    padding-left: 5px;
-    padding-right: 8px;
-}
-
-#memory.warning {
-    background-color: #ffbe61;
-}
-
-#memory.critical {
-    background-color: #eb4d4b;
-}
-
 #battery {
     padding-left: 8px;
     padding-right: 8px;
@@ -134,6 +73,72 @@ window#waybar.hidden {
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-direction: alternate;
+}
+
+#network {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#bluetooth {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#privacy {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#language {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#wireplumber {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#wireplumber.muted {
+    background-color: #eb4d4b;
+}
+
+#disk {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#memory {
+    padding-left: 8px;
+    padding-right: 5px;
+}
+
+#memory.warning {
+    background-color: #ffbe61;
+}
+
+#memory.critical {
+    background-color: #eb4d4b;
+}
+
+#cpu {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#temperature {
+    padding-left: 5px;
+    padding-right: 8px;
+}
+
+#temperature.critical {
+    background-color: #eb4d4b;
+}
+
+#clock {
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 @keyframes blink {

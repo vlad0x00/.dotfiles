@@ -4,9 +4,9 @@
     // "height": 30, // Waybar height (to be removed for auto height)
     "margin": "13 26 -8 26",
     // "width": 1280, // Waybar width
-    "modules-left": ["sway/workspaces", "tray"],
-    "modules-center": ["clock"],
-    "modules-right": ["privacy", "bluetooth", "sway/language", "wireplumber", "disk", "cpu", "temperature", "memory", "battery"],
+    "modules-left": ["sway/workspaces", "tray", "battery", "network", "bluetooth", "privacy"],
+    "modules-center": [],
+    "modules-right": ["sway/language", "wireplumber", "disk", "memory", "cpu", "temperature", "clock"],
 
 
     //***************************
@@ -22,9 +22,38 @@
         "spacing": 6
     },
 
-    "clock": {
-        "interval" : 15,
-        "format": "{:%Y-%m-%d (%a) %H:%M:%S}"
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "design-capacity": true,
+        "format": "{icon} {capacity}%",
+        "format-charging": "{capacity}% ⚡",
+        "format-plugged": "{capacity}% ",
+        "format-icons": ["", "", "", "", ""]
+    },
+
+    "network": {
+        "interface" : "wlan0",
+        "format": "{ifname}",
+        "format-wifi": " {essid}",
+        "format-ethernet": " {ipaddr}/{cidr}",
+        "format-disconnected": "", //An empty format will hide the module.
+        "tooltip-format": "{ifname} via {gwaddr}",
+        "tooltip-format-wifi": " {essid} ({signalStrength}%) {ipaddr}/{cidr}",
+        "tooltip-format-ethernet": " {ifname}",
+        "tooltip-format-disconnected": "Disconnected"
+    },
+
+   "bluetooth": {
+        "format": " {status}",
+        "format-disabled": "",
+        "format-connected": " {num_connections}",
+        "tooltip-format": "{controller_alias}\t{controller_address}",
+        "tooltip-format-connected": "{controller_alias} {controller_address}\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias} {device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias} {device_address} {device_battery_percentage}%"
     },
 
     "privacy": {
@@ -50,17 +79,8 @@
         ]
     },
 
-   "bluetooth": {
-        "format": " {status}",
-        "format-disabled": "",
-        "format-connected": " {num_connections}",
-        "tooltip-format": "{controller_alias}\t{controller_address}",
-        "tooltip-format-connected": "{controller_alias} {controller_address}\n\n{device_enumerate}",
-        "tooltip-format-enumerate-connected": "{device_alias} {device_address}",
-        "tooltip-format-enumerate-connected-battery": "{device_alias} {device_address} {device_battery_percentage}%"
-    },
-
     "sway/language": {
+        "format" : "⌨ {short}",
 	"tooltip": false,
 	"on-click": "swaymsg input type:keyboard xkb_switch_layout next"
     },
@@ -75,6 +95,15 @@
         "format": " {used}/{total}"
     },
 
+    "memory": {
+        "interval": 10,
+        "format": " {}%",
+        "states": {
+            "warning": 90,
+            "critical": 95
+        },
+    },
+
     "cpu": {
         "interval": 5,
         "format": " {usage}%"
@@ -87,27 +116,10 @@
         "format-icons": ["", "", "", "", ""],
         "tooltip": false,
     },
-
-    "memory": {
-        "interval": 10,
-        "format": " {}%",
-        "max-length": 10,
-        "states": {
-            "warning": 90,
-            "critical": 95
-        },
-    },
-
-    "battery": {
-        "states": {
-            "warning": 30,
-            "critical": 15
-        },
-        "design-capacity": true,
-        "format": "{icon} {capacity}%",
-        "format-charging": "{capacity}% ⚡",
-        "format-plugged": "{capacity}% ",
-        "format-icons": ["", "", "", "", ""]
+    
+    "clock": {
+        "interval" : 15,
+        "format": "{:%Y-%m-%d (%a) %H:%M:%S}"
     },
 }
 
