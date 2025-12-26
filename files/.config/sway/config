@@ -189,7 +189,7 @@ input type:keyboard {
 }
 
 assign [app_id="firefox"] 1
-assign [class="Code"] 2
+assign [app_id="code"] 2
 assign [class="steam"] 5
 assign [app_id="org.keepassxc.KeePassXC"] 9
 assign [app_id="spotify"] 9
