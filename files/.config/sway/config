@@ -197,6 +197,7 @@ assign [app_id="signal"] 10
 assign [class="discord"] 10
 assign [app_id="org.telegram.desktop"] 10
 assign [app_id="Slack"] 10
+assign [app_id="Zulip"] 10
 
 include /etc/sway/config.d/*
 
@@ -217,5 +218,6 @@ exec "sh -c 'sleep 2 && signal-desktop'"
 exec "sh -c 'sleep 2 && discord'"
 exec "sh -c 'sleep 2 && Telegram'"
 exec "sh -c 'sleep 2 && slack'"
+exec "sh -c 'sleep 2 && zulip'"
 
 # Missing fade in/out when transitioning between windows
