@@ -6,7 +6,7 @@
     // "width": 1280, // Waybar width
     "modules-left": ["battery", "network", "bluetooth", "tray", "sway/workspaces"],
     "modules-center": ["clock"],
-    "modules-right": ["privacy", "sway/language", "wireplumber", "disk", "memory", "cpu", "temperature"],
+    "modules-right": ["privacy", "sway/language", "wireplumber", "cpu", "temperature", "memory", "disk"],
 
 
     //***************************
