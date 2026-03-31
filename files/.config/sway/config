@@ -1,4 +1,5 @@
 set $mod Mod4
+set $delay_after_vpn 3
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -212,12 +213,12 @@ exec redshift
 exec keepassxc
 
 # The following require internet connection and should wait for protonvpn
-exec "sh -c 'sleep 2 && firefox'"
-exec "sh -c 'sleep 2 && spotify-launcher'"
-exec "sh -c 'sleep 2 && signal-desktop'"
-exec "sh -c 'sleep 2 && discord'"
-exec "sh -c 'sleep 2 && Telegram'"
-exec "sh -c 'sleep 2 && slack'"
-exec "sh -c 'sleep 2 && zulip'"
+exec "sh -c 'sleep $delay_after_vpn && firefox'"
+exec "sh -c 'sleep $delay_after_vpn && spotify-launcher'"
+exec "sh -c 'sleep $delay_after_vpn && signal-desktop'"
+exec "sh -c 'sleep $delay_after_vpn && discord'"
+exec "sh -c 'sleep $delay_after_vpn && Telegram'"
+exec "sh -c 'sleep $delay_after_vpn && slack'"
+exec "sh -c 'sleep $delay_after_vpn && zulip'"
 
 # Missing fade in/out when transitioning between windows
