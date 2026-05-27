@@ -1,5 +1,5 @@
 set $mod Mod4
-set $delay_after_vpn 4
+set $delay_after_vpn 5
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -193,11 +193,11 @@ assign [app_id="firefox"] 1
 assign [app_id="code"] 2
 assign [class="steam"] 5
 assign [app_id="org.keepassxc.KeePassXC"] 9
-assign [app_id="spotify"] 9
+assign [class="Spotify"] 9
 assign [app_id="signal"] 10
 assign [class="discord"] 10
 assign [app_id="org.telegram.desktop"] 10
-assign [app_id="Slack"] 10
+assign [app_id="slack"] 10
 assign [app_id="Zulip"] 10
 
 include /etc/sway/config.d/*
