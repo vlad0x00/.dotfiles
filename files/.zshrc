@@ -111,7 +111,7 @@ fi
 source $ZSH/oh-my-zsh.sh
 [[ -f ~/.env ]] && source ~/.env
 [[ -f ~/.alias ]] && source ~/.alias
-[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+eval "$(zoxide init zsh)"
 
 (cat $HOME/.cache/wal/sequences &)
 
