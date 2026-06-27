@@ -109,11 +109,6 @@ if [[ ! -d $ZSH_CACHE_DIR ]]; then
 fi
 
 source $ZSH/oh-my-zsh.sh
-[[ -f ~/.env ]] && source ~/.env
-[[ -f ~/.alias ]] && source ~/.alias
-eval "$(zoxide init zsh)"
-
-(cat $HOME/.cache/wal/sequences &)
 
 unset zle_bracketed_paste
 

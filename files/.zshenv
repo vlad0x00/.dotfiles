@@ -9,6 +9,3 @@ export ANDROID_NDK_HOME="/opt/android-ndk"
 export PATH="$PATH:/home/$USER/tools/bin:/home/$USER/.utils:/home/$USER/.local/bin:/home/$USER/.cargo/bin"
 export MAKEFLAGS="-j$(nproc)"
 export R_LIBS_USER=$HOME/tools/R
-export XDG_SESSION_TYPE=wayland
-export XDG_SESSION_DESKTOP=sway
-export XDG_CURRENT_DESKTOP=sway
