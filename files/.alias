@@ -1,7 +1,0 @@
-alias _="sudo"
-alias ls="ls --color=auto"
-alias lsd="{ls | tr '\n' ' '; echo; } | lolcat -a -d 150 -s 60"
-alias mv="mv -i"
-alias cp="cp -i"
-alias rm="rm -i"
-alias stellarium="LIBGL_ALWAYS_SOFTWARE=1 stellarium"
