@@ -162,7 +162,7 @@ bindsym $mod+Shift+minus move scratchpad
 # Show the first scratchpad window
 bindsym $mod+minus scratchpad show
 
-gaps inner 26
+gaps inner 20
 gaps outer 0
 
 set $ws1 "1: &#xf120;"
