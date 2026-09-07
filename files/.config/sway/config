@@ -204,12 +204,11 @@ include /etc/sway/config.d/*
 
 exec_always sh -c '[ -d ~/.wallpapers ] && wal -ne -i ~/.wallpapers && swaymsg output "*" bg "$(< ~/.cache/wal/wal)" fill'
 
-bar swaybar_command waybar
+exec "systemctl --user import-environment DISPLAY SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP; systemctl --user start sway-session.target"
+exec_always systemctl --user try-reload-or-restart waybar
 
 exec nm-applet
 exec /usr/lib/polkit-kde-authentication-agent-1
-exec protonvpn-app
-exec redshift
 exec keepassxc
 
 # The following require internet connection and should wait for protonvpn

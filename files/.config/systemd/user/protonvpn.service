@@ -1,0 +1,9 @@
+[Unit]
+Description=Proton VPN app
+PartOf=graphical-session.target
+Requires=waybar.service
+After=waybar.service
+
+[Service]
+ExecStart=/usr/bin/protonvpn-app
+Restart=on-failure

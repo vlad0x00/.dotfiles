@@ -3,11 +3,12 @@ files/.config/*
 !files/.config/waybar
 !files/.config/xfce4/terminal
 !files/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-terminal.xml
-!files/.config/redshift
+!files/.config/gammastep
 !files/.config/user-dirs.dirs
 !files/.config/user-dirs.locale
 !files/.config/htop
 !files/.config/fish
+!files/.config/systemd
 
 files/.mozilla/*
 !files/.mozilla/firefox/*.default-release/chrome
