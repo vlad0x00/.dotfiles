@@ -203,7 +203,7 @@ include /etc/sway/config.d/*
 
 exec_always sh -c '[ -d ~/.wallpapers ] && wal -ne -i ~/.wallpapers && swaymsg output "*" bg "$(< ~/.cache/wal/wal)" fill'
 
-exec "systemctl --user import-environment DISPLAY SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP; systemctl --user start sway-session.target"
+exec "systemctl --user import-environment; systemctl --user start sway-session.target"
 exec_always systemctl --user try-reload-or-restart waybar
 
 exec nm-applet
