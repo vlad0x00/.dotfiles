@@ -1,0 +1,10 @@
+[Unit]
+Description=Wait for ProtonVPN tunnel
+PartOf=graphical-session.target
+After=protonvpn.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=%h/.utils/wait-for-vpn
+TimeoutStartSec=90

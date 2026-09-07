@@ -1,0 +1,9 @@
+#!/bin/bash
+
+for _ in $(seq 60); do
+    if nmcli -t -f DEVICE,STATE device status | grep -q '^proton0:connected'; then
+        curl -sf --max-time 3 https://status.proton.me >/dev/null && exit 0
+    fi
+    sleep 1
+done
+exit 1

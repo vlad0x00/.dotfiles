@@ -1,5 +1,4 @@
 set $mod Mod4
-set $delay_after_vpn 5
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -210,14 +209,5 @@ exec_always systemctl --user try-reload-or-restart waybar
 exec nm-applet
 exec /usr/lib/polkit-kde-authentication-agent-1
 exec keepassxc
-
-# The following require internet connection and should wait for protonvpn
-exec "sh -c 'sleep $delay_after_vpn && firefox'"
-exec "sh -c 'sleep $delay_after_vpn && spotify-launcher'"
-exec "sh -c 'sleep $delay_after_vpn && signal-desktop'"
-exec "sh -c 'sleep $delay_after_vpn && discord'"
-exec "sh -c 'sleep $delay_after_vpn && Telegram'"
-exec "sh -c 'sleep $delay_after_vpn && slack'"
-exec "sh -c 'sleep $delay_after_vpn && zulip'"
 
 # Missing fade in/out when transitioning between windows

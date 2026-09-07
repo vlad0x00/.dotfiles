@@ -1,0 +1,8 @@
+[Unit]
+Description=%i
+PartOf=graphical-session.target
+Requires=vpn-online.service
+After=vpn-online.service
+
+[Service]
+ExecStart=/usr/bin/%i

@@ -2,4 +2,5 @@
 Description=sway session
 BindsTo=graphical-session.target
 Wants=graphical-session-pre.target waybar.service protonvpn.service app-geoclue\x2ddemo\x2dagent@autostart.service gammastep.service
+Wants=after-vpn@firefox.service after-vpn@spotify-launcher.service after-vpn@signal-desktop.service after-vpn@discord.service after-vpn@Telegram.service after-vpn@slack.service after-vpn@zulip.service
 After=graphical-session-pre.target
