@@ -201,10 +201,10 @@ assign [app_id="Zulip"] 10
 
 include /etc/sway/config.d/*
 
-exec_always sh -c '[ -d ~/.wallpapers ] && wal -ne -i ~/.wallpapers && swaymsg output "*" bg "$(< ~/.cache/wal/wal)" fill'
+# waybar reload has to happen after wal in order to pick up the new colors
+exec_always sh -c '[ -d ~/.wallpapers ] && wal -ne -i ~/.wallpapers && swaymsg output "*" bg "$(< ~/.cache/wal/wal)" fill; systemctl --user try-reload-or-restart waybar'
 
 exec "systemctl --user import-environment; systemctl --user start sway-session.target"
-exec_always systemctl --user try-reload-or-restart waybar
 
 exec nm-applet
 exec /usr/lib/polkit-kde-authentication-agent-1

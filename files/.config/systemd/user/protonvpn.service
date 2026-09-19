@@ -1,7 +1,7 @@
 [Unit]
 Description=Proton VPN app
 PartOf=graphical-session.target
-Requires=waybar.service
+Wants=waybar.service
 After=waybar.service
 
 [Service]
