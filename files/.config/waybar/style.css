@@ -140,7 +140,8 @@ window#waybar.hidden {
 }
 
 #temperature.critical {
-    background-color: #eb4d4b;
+    background-color: @foreground;
+    color: @background;
 }
 
 @keyframes blink {
