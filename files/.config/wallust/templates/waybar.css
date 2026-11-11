@@ -1,0 +1,5 @@
+@define-color cursor {{cursor}};
+@define-color background {{background}};
+@define-color foreground {{foreground}};
+{% for c in colors[:16] %}@define-color color{{loop.index0}} {{c}};
+{% endfor %}

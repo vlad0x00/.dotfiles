@@ -1,0 +1,7 @@
+[templates]
+waybar = { template = 'waybar.css', target = '~/.cache/wallust/waybar.css' }
+wallpaper    = { template = 'wallpaper', target = '~/.cache/wallust/wallpaper' }
+
+[hooks]
+bg     = 'swaymsg output "*" bg "$(cat ~/.cache/wallust/wallpaper)" fill'
+waybar = 'systemctl --user try-reload-or-restart waybar'

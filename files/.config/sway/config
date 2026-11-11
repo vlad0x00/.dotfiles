@@ -201,8 +201,7 @@ assign [app_id="Zulip"] 10
 
 include /etc/sway/config.d/*
 
-# waybar reload has to happen after wal in order to pick up the new colors
-exec_always sh -c '[ -d ~/.wallpapers ] && wal -ne -i ~/.wallpapers && swaymsg output "*" bg "$(< ~/.cache/wal/wal)" fill; systemctl --user try-reload-or-restart waybar'
+exec_always wallust run "$(fd -t f -e jpg -e jpeg -e png -e webp -e bmp -e tif -e tiff . ~/.wallpapers | shuf -n1)"
 
 exec "systemctl --user import-environment; systemctl --user start sway-session.target"
 
