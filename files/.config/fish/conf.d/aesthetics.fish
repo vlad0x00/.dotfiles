@@ -1,3 +1,3 @@
 status is-interactive; or return
 
-test -e ~/.cache/wal/sequences && cat ~/.cache/wal/sequences
+test -e ~/.cache/wallust/sequences && cat ~/.cache/wallust/sequences
