@@ -1,3 +1,5 @@
+check_contrast = true
+
 [templates]
 waybar = { template = 'waybar.css', target = '~/.cache/wallust/waybar.css' }
 wallpaper    = { template = 'wallpaper', target = '~/.cache/wallust/wallpaper' }
