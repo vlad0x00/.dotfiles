@@ -4,7 +4,7 @@
     // "height": 30, // Waybar height (to be removed for auto height)
     "margin": "0 20 -8 20",
     // "width": 1280, // Waybar width
-    "modules-left": ["battery", "network", "bluetooth", "tray", "sway/workspaces"],
+    "modules-left": ["battery", "network#wifi", "network#ethernet", "bluetooth", "tray", "sway/workspaces"],
     "modules-center": ["clock"],
     "modules-right": ["privacy", "sway/language", "wireplumber", "temperature", "cpu", "memory", "disk"],
 
@@ -25,16 +25,24 @@
         "format-icons": ["", "", "", "", ""]
     },
 
-    "network": {
-        "interface" : "wlan0",
-        "format": "{ifname}",
+    "network#wifi": {
+        "interface": "wl*",
+        "format": " ", // Any state not listed here means it's still connecting.
         "format-wifi": " {essid} ({signalStrength}%)",
-        "format-ethernet": " {ipaddr}/{cidr}",
         "format-disconnected": "", //An empty format will hide the module.
-        "tooltip-format": "{ifname} via {gwaddr}",
-        "tooltip-format-wifi": " {essid} ({signalStrength}%) {ipaddr}/{cidr}",
-        "tooltip-format-ethernet": " {ifname}",
-        "tooltip-format-disconnected": "Disconnected"
+        "format-disabled": "",
+        "tooltip-format": "{ifname}: connecting",
+        "tooltip-format-wifi": " {essid} ({signalStrength}%) {ipaddr}/{cidr}"
+    },
+
+    "network#ethernet": {
+        "interface": "en*",
+        "format": " ", // Any state not listed here means it's still connecting.
+        "format-ethernet": "",
+        "format-disconnected": "", //An empty format will hide the module.
+        "format-disabled": "",
+        "tooltip-format": "{ifname}: connecting",
+        "tooltip-format-ethernet": " {ifname} {ipaddr}/{cidr}"
     },
 
    "bluetooth": {
