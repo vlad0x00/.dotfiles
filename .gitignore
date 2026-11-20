@@ -8,8 +8,10 @@ files/.config/*
 !files/.config/user-dirs.dirs
 !files/.config/user-dirs.locale
 !files/.config/htop
-!files/.config/fish
 !files/.config/systemd
+
+!files/.config/fish
+files/.config/fish/fish_variables
 
 files/.mozilla/*
 !files/.mozilla/firefox/*.default-release/chrome
