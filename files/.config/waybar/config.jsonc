@@ -124,6 +124,8 @@
     },
 
     "temperature": {
+        "hwmon-by-name": "temp",          // matches coretemp (Intel) and k10temp (AMD)
+        "input-filename": "temp1_input",  // whole-CPU reading for both
         "interval": 10,
         "critical-threshold": 80,
         "format": "{icon} {temperatureC}°C",
