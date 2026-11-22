@@ -1,18 +1,21 @@
-files/.config/*
-!files/.config/sway
-!files/.config/waybar
-!files/.config/wallust
-!files/.config/xfce4/terminal
-!files/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-terminal.xml
-!files/.config/gammastep
-!files/.config/user-dirs.dirs
-!files/.config/user-dirs.locale
-!files/.config/htop
-!files/.config/systemd
+files/*/**
+!files/*/**/
 
-!files/.config/fish
+!files/.utils/**
+!files/.config/sway/**
+!files/.config/waybar/**
+!files/.config/wallust/**
+!files/.config/gammastep/**
+!files/.config/user-dirs.*
+!files/.config/htop/**
+!files/.config/systemd/**
+
+!files/.config/fish/**
 files/.config/fish/fish_variables
 
-files/.mozilla/*
-!files/.mozilla/firefox/*.default-release/chrome
+!files/.config/xfce4/help.rc
+!files/.config/xfce4/terminal/**
+!files/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-terminal.xml
+
+!files/.mozilla/firefox/*.default-release/chrome/**
 !files/.mozilla/firefox/*.default-release/user.js
